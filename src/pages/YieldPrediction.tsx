@@ -83,8 +83,8 @@ function YieldPrediction() {
       } catch (error) {
         console.error("Error fetching weather:", error);
         toast({
-          title: "Weather Fetch Failed",
-          description: "Could not auto-fill weather data",
+          title: t.yieldPredictionExtra.failedWeather,
+          description: t.yieldPredictionExtra.noAutoFill,
           variant: "destructive",
         });
         setIsFetchingWeather(false);
@@ -131,8 +131,8 @@ function YieldPrediction() {
       setIsFetchingWeather(false);
       
       toast({
-        title: "Weather data loaded",
-        description: `Automatically fetched weather for ${location}`,
+        title: t.yieldPredictionExtra.weatherLoaded,
+        description: `${t.yieldPredictionExtra.autoFetchedFor}${location}`,
       });
     } catch (err) {
       console.error("Error fetching weather:", err);
@@ -161,8 +161,8 @@ function YieldPrediction() {
       setIsFetchingWeather(false);
       
       toast({
-        title: "Weather data loaded",
-        description: "Automatically fetched weather for Hyderabad",
+        title: t.yieldPredictionExtra.weatherLoaded,
+        description: `${t.yieldPredictionExtra.autoFetchedFor}Hyderabad`,
       });
     } catch (err) {
       console.error("Error fetching default weather:", err);
@@ -284,7 +284,7 @@ function YieldPrediction() {
             {isFetchingWeather && (
               <div className="flex items-center justify-center p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-2"></div>
-                <span className="text-sm text-blue-600 dark:text-blue-400">Fetching live weather data...</span>
+                <span className="text-sm text-blue-600 dark:text-blue-400">{t.yieldPredictionExtra.fetchingWeather}</span>
               </div>
             )}
             
@@ -306,7 +306,7 @@ function YieldPrediction() {
               <div className="space-y-2">
                 <Label htmlFor="temperature" className="flex items-center justify-between">
                   <span>🌡️ {t.yieldPrediction.temperature}</span>
-                  <Badge variant="secondary" className="text-xs">Auto-filled</Badge>
+                  <Badge variant="secondary" className="text-xs">{t.yieldPredictionExtra.autoFilled}</Badge>
                 </Label>
                 <Input
                   id="temperature"
@@ -320,7 +320,7 @@ function YieldPrediction() {
               <div className="space-y-2">
                 <Label htmlFor="rainfall" className="flex items-center justify-between">
                   <span>🌧️ {t.yieldPrediction.rainfall}</span>
-                  <Badge variant="secondary" className="text-xs">Auto-filled</Badge>
+                  <Badge variant="secondary" className="text-xs">{t.yieldPredictionExtra.autoFilled}</Badge>
                 </Label>
                 <Input
                   id="rainfall"
@@ -337,7 +337,7 @@ function YieldPrediction() {
               <div className="space-y-2">
                 <Label htmlFor="humidity" className="flex items-center justify-between">
                   <span>💧 {t.yieldPrediction.humidity}</span>
-                  <Badge variant="secondary" className="text-xs">Auto-filled</Badge>
+                  <Badge variant="secondary" className="text-xs">{t.yieldPredictionExtra.autoFilled}</Badge>
                 </Label>
                 <Input
                   id="humidity"
@@ -384,7 +384,7 @@ function YieldPrediction() {
               disabled={isFetchingWeather}
             >
               <RefreshCw className={`mr-2 h-4 w-4 ${isFetchingWeather ? 'animate-spin' : ''}`} />
-              Refresh Weather Data
+              {t.yieldPredictionExtra.refreshWeather}
             </Button>
 
             <Button 
@@ -422,7 +422,7 @@ function YieldPrediction() {
                 </div>
                 <div className="text-lg text-gray-600">{result.unit}</div>
                 <Badge variant="secondary" className="text-sm">
-                  🎯 Powered by Random Forest ML Model
+                  {t.yieldPredictionExtra.mlModelPowered}
                 </Badge>
               </div>
 

@@ -39,7 +39,7 @@ export function WeatherWidget() {
           await getWeatherData(17.385044, 78.486671);
         }
       } catch (err) {
-        setError("Failed to fetch weather data");
+        setError(t.weatherWidget.failedFetch);
         setLoading(false);
       }
     };
@@ -67,7 +67,7 @@ export function WeatherWidget() {
       const condition = getWeatherCondition(weatherCode);
       
       setWeather({
-        location: locationData.address.city || locationData.address.town || locationData.address.village || "Your Location",
+        location: locationData.address.city || locationData.address.town || locationData.address.village || t.weatherWidget.yourLocation,
         temperature: Math.round(weatherData.current.temperature_2m),
         condition: condition.name,
         humidity: weatherData.current.relative_humidity_2m,
@@ -78,21 +78,21 @@ export function WeatherWidget() {
       setLoading(false);
     } catch (err) {
       console.error("Error fetching weather:", err);
-      setError("Unable to fetch weather data");
+      setError(t.weatherWidget.unableFetch);
       setLoading(false);
     }
   };
 
   const getWeatherCondition = (code: number) => {
     // WMO Weather interpretation codes
-    if (code === 0) return { name: "Clear", description: "Clear sky", icon: "sun" };
-    if (code <= 3) return { name: "Partly Cloudy", description: "Partly cloudy", icon: "cloud" };
-    if (code <= 48) return { name: "Foggy", description: "Fog", icon: "cloud" };
-    if (code <= 67) return { name: "Rainy", description: "Rain", icon: "rain" };
-    if (code <= 77) return { name: "Snowy", description: "Snow", icon: "cloud" };
-    if (code <= 82) return { name: "Rainy", description: "Rain showers", icon: "rain" };
-    if (code <= 99) return { name: "Stormy", description: "Thunderstorm", icon: "rain" };
-    return { name: "Unknown", description: "Weather data unavailable", icon: "cloud" };
+    if (code === 0) return { name: t.weatherWidget.clear, description: t.weatherWidget.clearSky, icon: "sun" };
+    if (code <= 3) return { name: t.weatherWidget.partlyCloudy, description: t.weatherWidget.partlyCloudy, icon: "cloud" };
+    if (code <= 48) return { name: t.weatherWidget.foggy, description: t.weatherWidget.fog, icon: "cloud" };
+    if (code <= 67) return { name: t.weatherWidget.rainy, description: t.weatherWidget.rain, icon: "rain" };
+    if (code <= 77) return { name: t.weatherWidget.snowy, description: t.weatherWidget.snow, icon: "cloud" };
+    if (code <= 82) return { name: t.weatherWidget.rainy, description: t.weatherWidget.rainShowers, icon: "rain" };
+    if (code <= 99) return { name: t.weatherWidget.stormy, description: t.weatherWidget.thunderstorm, icon: "rain" };
+    return { name: t.weatherWidget.unknown, description: t.weatherWidget.unavailable, icon: "cloud" };
   };
 
   const getWeatherIcon = (icon: string) => {
@@ -164,7 +164,7 @@ export function WeatherWidget() {
         </div>
 
         <div className="text-xs text-center text-muted-foreground pt-2 border-t border-blue-200 dark:border-blue-800">
-          {t.common.weatherSource || "Data from Open-Meteo"}
+          {t.common.weatherSource || t.weatherWidget.dataSource}
         </div>
       </CardContent>
     </Card>

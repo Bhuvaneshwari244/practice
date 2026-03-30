@@ -978,12 +978,14 @@ const states = [
 
 interface RoadmapStage {
   stage: string;
-  duration: string;
+  timeframe: string;
   activities: string[];
   completed?: boolean;
   currentStage?: boolean;
   startDate?: string | null;
   completedDate?: string | null;
+  icon?: string;
+  color?: string;
 }
 
 interface TrackingData {
@@ -994,7 +996,7 @@ interface TrackingData {
 }
 
 interface TrackingDataMap {
-  [key: string]: TrackingData;
+  [key: string]: any;
 }
 
 export default function CropCalendar() {
@@ -1530,12 +1532,12 @@ export default function CropCalendar() {
               </div>
               <div>
                 <h3 className="font-semibold text-primary">
-                  Current Season: {getCurrentSeason().charAt(0).toUpperCase() + getCurrentSeason().slice(1)}
+                  {t.cropCalendar?.currentSeason || "Current Season"}: {getSeasonName(getCurrentSeason())}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  {getCurrentSeason() === "kharif" && "Monsoon season (June-September) - Focus on rain-fed crops"}
-                  {getCurrentSeason() === "rabi" && "Winter season (October-March) - Focus on irrigated crops"}
-                  {getCurrentSeason() === "zaid" && "Summer season (April-May) - Focus on irrigated crops with high water availability"}
+                  {getCurrentSeason() === "kharif" && (t.cropCalendar?.monsoonSeason || "Monsoon season (June-September) - Focus on rain-fed crops")}
+                  {getCurrentSeason() === "rabi" && (t.cropCalendar?.winterSeason || "Winter season (October-March) - Focus on irrigated crops")}
+                  {getCurrentSeason() === "zaid" && (t.cropCalendar?.summerSeason || "Summer season (April-May) - Focus on irrigated crops")}
                 </p>
               </div>
             </div>
@@ -1545,10 +1547,10 @@ export default function CropCalendar() {
         {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="flex-1">
-            <label className="block text-sm font-medium mb-2">{t.cropCalendar.selectState}</label>
+            <label className="block text-sm font-medium mb-2">{t.cropCalendar?.selectState || "Select State"}</label>
             <Select value={selectedState} onValueChange={setSelectedState}>
               <SelectTrigger>
-                <SelectValue placeholder="Choose state" />
+                <SelectValue placeholder={t.cropCalendar?.selectState || "Choose state"} />
               </SelectTrigger>
               <SelectContent>
                 {states.map(state => (
@@ -1563,10 +1565,10 @@ export default function CropCalendar() {
             </Select>
           </div>
           <div className="flex-1">
-            <label className="block text-sm font-medium mb-2">{t.cropCalendar.cropCategory}</label>
+            <label className="block text-sm font-medium mb-2">{t.cropCalendar?.cropCategory || "Crop Category"}</label>
             <Select value={selectedCategory.toString()} onValueChange={(value) => setSelectedCategory(parseInt(value))}>
               <SelectTrigger>
-                <SelectValue placeholder="Choose category" />
+                <SelectValue placeholder={t.cropCalendar?.cropCategory || "Choose category"} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category, index) => (

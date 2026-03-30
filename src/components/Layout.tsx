@@ -59,7 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 text-foreground rounded-xl hover:bg-secondary transition-colors"
-              title="Toggle theme"
+              title={t.common.toggleTheme}
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
@@ -121,7 +121,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className="fixed bottom-20 md:bottom-6 right-4 z-50 bg-green-500 hover:bg-green-600 text-white rounded-2xl p-3.5 shadow-lg"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        title="Contact us on WhatsApp"
+        title={t.common.contactWhatsapp}
       >
         <MessageCircle size={24} />
       </motion.a>

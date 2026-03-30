@@ -40,7 +40,7 @@ export default function Transport() {
   // Step 1: Register & generate ID locally
   const handleRegister = () => {
     if (!form.cropType || !form.quantity || !form.pickup || !form.destination || !form.phone) {
-      toast({ title: "Missing details", description: "Please fill all fields including phone number", variant: "destructive" });
+      toast({ title: t.transportExtra.missingDetails || "Missing details", description: t.transportExtra.fillAll || "Please fill all fields including phone number", variant: "destructive" });
       return;
     }
     const id = generateTransportId();
@@ -50,7 +50,7 @@ export default function Transport() {
       eta: "Pending",
       details: [`Booked just now`, "", "", ""],
     };
-    toast({ title: "✅ Pickup Registered!", description: `Your tracking ID is ${id}` });
+    toast({ title: t.transportExtra.pickupRegistered || "✅ Pickup Registered!", description: `${t.transportExtra.trackingIdIs || "Your tracking ID is "}${id}` });
   };
 
   // Step 2: Send ID + details via WhatsApp
@@ -176,7 +176,7 @@ export default function Transport() {
                     { key: "quantity", label: tt.quantity, placeholder: tt.placeholderQty, type: "number" },
                     { key: "pickup", label: tt.pickup, placeholder: tt.placeholderPickup, type: "text" },
                     { key: "destination", label: tt.destination, placeholder: tt.placeholderDest, type: "text" },
-                    { key: "phone", label: "📱 Phone Number", placeholder: "e.g., 9876543210", type: "tel" },
+                    { key: "phone", label: t.transportExtra?.phoneLabel || "📱 Phone Number", placeholder: t.transportExtra?.phonePlaceholder || "e.g., 9876543210", type: "tel" },
                   ].map((field, i) => (
                     <motion.div 
                       key={field.key} 
@@ -236,9 +236,9 @@ export default function Transport() {
                           >
                             <CheckCircle2 size={20} className="text-success" />
                           </motion.span>
-                          <p className="font-display font-semibold text-foreground">Pickup Registered!</p>
+                          <p className="font-display font-semibold text-foreground">{t.transportExtra?.pickupRegistered || "Pickup Registered!"}</p>
                         </div>
-                        <p className="text-xs text-muted-foreground mb-3">Your unique tracking ID:</p>
+                        <p className="text-xs text-muted-foreground mb-3">{t.transportExtra?.yourId || "Your unique tracking ID:"}</p>
                         <div className="flex items-center gap-2">
                           <motion.div 
                             className="flex-1 bg-card border-2 border-success/40 rounded-xl px-4 py-3 font-mono text-xl font-bold text-success tracking-widest text-center select-all"
@@ -272,7 +272,7 @@ export default function Transport() {
                         >
                           <Send size={20} />
                         </motion.span>
-                        Send ID & Details via WhatsApp
+                        {t.transportExtra?.sendDetails || "Send ID & Details via WhatsApp"}
                       </motion.button>
 
                       {/* Track link */}
@@ -281,13 +281,13 @@ export default function Transport() {
                         whileHover={{ scale: 1.02 }}
                         className="w-full text-sm text-primary font-semibold hover:underline py-2"
                       >
-                        → Track this shipment
+                        {t.transportExtra?.trackThis || "→ Track this shipment"}
                       </motion.button>
 
                       {/* New request */}
                       <button onClick={() => { setGeneratedId(null); setForm({ cropType: "", quantity: "", pickup: "", destination: "", phone: "" }); }}
                         className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors py-1">
-                        + New Request
+                        {t.transportExtra?.newRequest || "+ New Request"}
                       </button>
                     </motion.div>
                   )}

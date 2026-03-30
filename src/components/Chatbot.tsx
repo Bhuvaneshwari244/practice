@@ -8,8 +8,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 // TypeScript declarations for Speech APIs
 declare global {
   interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
   }
 }
 
@@ -45,6 +45,7 @@ interface SpeechRecognition extends EventTarget {
   onend: (() => void) | null;
   start(): void;
   stop(): void;
+  abort(): void;
 }
 
 interface Message {
@@ -522,7 +523,7 @@ export default function Chatbot() {
                 <div>
                   <h3 className="font-semibold text-sm">AgriBot</h3>
                   <p className="text-xs opacity-90">
-                    AI Farming Assistant
+                    {t.common.aiAssistant}
                     {isSpeaking && <span className="ml-1 animate-pulse">🔊</span>}
                   </p>
                 </div>
@@ -531,7 +532,7 @@ export default function Chatbot() {
                 <button
                   onClick={() => setVoiceEnabled(!voiceEnabled)}
                   className={`p-1 rounded ${voiceEnabled ? 'bg-blue-600' : 'bg-blue-400'}`}
-                  title={voiceEnabled ? "Voice enabled" : "Voice disabled"}
+                  title={voiceEnabled ? t.common.voiceEnabled : t.common.voiceDisabled}
                 >
                   {voiceEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
                 </button>
@@ -539,7 +540,7 @@ export default function Chatbot() {
                   <button
                     onClick={stopSpeaking}
                     className="p-1 hover:bg-blue-600 rounded animate-pulse"
-                    title="Stop speaking"
+                    title={t.common.stopSpeaking}
                   >
                     <VolumeX size={16} />
                   </button>
@@ -633,7 +634,7 @@ export default function Chatbot() {
               {isListening && (
                 <div className="mt-2 text-xs text-blue-600 flex items-center gap-2">
                   <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                  Listening... Speak now
+                  {t.common.listening}
                 </div>
               )}
             </div>

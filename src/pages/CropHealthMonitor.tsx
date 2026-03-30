@@ -247,13 +247,13 @@ export default function CropHealthMonitor() {
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold text-green-800 dark:text-green-400 flex items-center justify-center gap-3">
             <Satellite className="h-10 w-10" />
-            Satellite Crop Health Monitor
+            {t.cropHealth.title}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Monitor your crop health using real-time satellite imagery and NDVI analysis
+            {t.cropHealth.subtitle}
           </p>
           <Badge variant="outline" className="text-sm">
-            🛰️ Powered by NASA MODIS Satellite Imagery
+            🛰️ {t.cropHealth.poweredBy}
           </Badge>
           <div className="max-w-2xl mx-auto p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
             <p className="text-xs text-blue-800 dark:text-blue-200">
@@ -269,10 +269,10 @@ export default function CropHealthMonitor() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MapPin className="h-5 w-5 text-green-600" />
-                Farm Location
+                {t.cropHealth.locationAnalysis}
               </CardTitle>
               <CardDescription>
-                Enter your farm coordinates or use auto-detection
+                {t.cropHealth.locationDesc}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -285,7 +285,7 @@ export default function CropHealthMonitor() {
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="latitude">📍 Latitude</Label>
+                  <Label htmlFor="latitude">📍 {t.cropHealth.coordinates} (Lat)</Label>
                   <Input
                     id="latitude"
                     type="number"
@@ -297,7 +297,7 @@ export default function CropHealthMonitor() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="longitude">📍 Longitude</Label>
+                  <Label htmlFor="longitude">📍 {t.cropHealth.coordinates} (Lon)</Label>
                   <Input
                     id="longitude"
                     type="number"
@@ -317,12 +317,12 @@ export default function CropHealthMonitor() {
                 {isLoading ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Analyzing Satellite Data...
+                    {t.cropHealth.analyzing}
                   </>
                 ) : (
                   <>
                     <Satellite className="mr-2 h-4 w-4" />
-                    Analyze Crop Health
+                    {t.cropHealth.analyzeCrop}
                   </>
                 )}
               </Button>
@@ -346,7 +346,7 @@ export default function CropHealthMonitor() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   {getStatusIcon(healthData.status)}
-                  Crop Health Analysis
+                  {t.cropHealth.healthStatus}
                 </CardTitle>
                 <CardDescription>
                   Analysis Date: {healthData.date}
@@ -362,7 +362,7 @@ export default function CropHealthMonitor() {
                   }}>
                     {healthData.ndvi}
                   </div>
-                  <div className="text-sm text-muted-foreground">NDVI Index</div>
+                  <div className="text-sm text-muted-foreground">{t.cropHealth.ndviIndex}</div>
                   <Badge className={getStatusColor(healthData.status)}>
                     {healthData.status === 'no-crops' ? 'NO CROPS DETECTED' : healthData.status.toUpperCase()}
                   </Badge>
@@ -377,9 +377,9 @@ export default function CropHealthMonitor() {
                 {healthData.status !== 'no-crops' && (
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Poor</span>
-                    <span>Moderate</span>
-                    <span>Healthy</span>
+                    <span>{t.cropHealth.poor}</span>
+                    <span>{t.cropHealth.moderate}</span>
+                    <span>{t.cropHealth.excellent}</span>
                   </div>
                   <div className="h-4 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full relative">
                     <div 
